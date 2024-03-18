@@ -23,7 +23,6 @@ path5 = os.path.join(cleanup_dir, others_dir)
 now = datetime.now()
 current_time = now.strftime('%H:%M:%S')
 
- 
 
 customtkinter.set_appearance_mode('dark')
 customtkinter.set_default_color_theme('dark-blue')
@@ -51,9 +50,9 @@ def cleanup():
     #print('Creating Cleanup Folder...')
 
      #Loop through all files on desktop   
-    imgs = ('pdf', 'jpg', 'HEIC')
+    imgs = ('pdf', 'jpg', 'HEIC', 'jpeg', 'png')
     movies = ('mp4', 'mov', 'MOV')
-    others = ('zip', 'dmg' 'xls')
+    others = ('zip', 'dmg', 'xls', 'xml', 'webp')
     audio = ('mp3, wav, aac')
     files_on_desktop = os.listdir(desktop_dir)
      # if there is a screenshot move it to screenshots folder
