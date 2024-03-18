@@ -23,6 +23,23 @@ path5 = os.path.join(cleanup_dir, others_dir)
 now = datetime.now()
 current_time = now.strftime('%H:%M:%S')
 
+ 
+
+customtkinter.set_appearance_mode('dark')
+customtkinter.set_default_color_theme('dark-blue')
+
+root = customtkinter.CTk()
+
+root.title('Desktop Cleanup')
+root.geometry('450x160')
+root.grid_columnconfigure(0, weight=1)
+
+#def get_progress():
+    #for i in range(1, 101):
+        #print(f'{i}%', end='\r')
+        #time.sleep(0.015)
+    #get_progress
+    
 #Main Function for the cleanup
 def cleanup():
     os.makedirs(cleanup_dir)
@@ -63,23 +80,10 @@ def cleanup():
             file_dir = desktop_dir + '/' + file
             shutil.move(file_dir, path5)
             print(f'Moving {file}')
+            time.sleep(.05)
+            label.configure(text=f'Cleanup folder completed at: {current_time}', text_color='DeepSkyBlue2')
             
-#print(f'Cleanup folder completed at: {current_time}')       
-
-customtkinter.set_appearance_mode('dark')
-customtkinter.set_default_color_theme('dark-blue')
-
-root = customtkinter.CTk()
-
-root.title('Desktop Cleanup')
-root.geometry('450x160')
-root.grid_columnconfigure(0, weight=1)
-
-#def get_progress():
-    #for i in range(1, 101):
-        #print(f'{i}%', end='\r')
-        #time.sleep(0.015)
-    #get_progress
+#print(f'Cleanup folder completed at: {current_time}')      
     
 def update_progress_label(progress_label):
     for i in range(1, 101):
@@ -87,15 +91,14 @@ def update_progress_label(progress_label):
         progress_label.update()
         time.sleep(0.010)   
 
-def cont_button_func():
-    print('This worked')
-    time.sleep(.05)
-    label.configure(text=f'Cleanup folder completed at: {current_time}', text_color='DeepSkyBlue2')
+#def cont_button_func():
+    #print('This worked')
+    #time.sleep(.05)
+    #label.configure(text=f'Cleanup folder completed at: {current_time}', text_color='DeepSkyBlue2')
     
 def later_button_func():
     print('Working')
     
-
 label = customtkinter.CTkLabel(root, text='Would you like to create a cleanup folder for all desktop files?')
 label.grid(row=0, column=0, padx=10, pady=10, columnspan=2)
 
@@ -103,7 +106,7 @@ progress_label = customtkinter.CTkLabel(root, text='')
 progress_label.grid(row=1, column=0, padx=10, pady=10, columnspan=2)
 #update_progress_label(progress_label)
 
-cont_button = customtkinter.CTkButton(root, text='Continue', text_color='Black', command=lambda: [update_progress_label(progress_label), cont_button_func()], fg_color='DeepSkyBlue2')
+cont_button = customtkinter.CTkButton(root, text='Continue', text_color='Black', command=lambda: [update_progress_label(progress_label), cleanup()], fg_color='DeepSkyBlue2')
 cont_button.grid(row=2, column =0, padx=10, pady=10, sticky='w')
 
 later_button = customtkinter.CTkButton(root, text='Later', text_color='Black', command=later_button_func, fg_color='DeepSkyBlue2')
