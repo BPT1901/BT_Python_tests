@@ -41,12 +41,18 @@ root.grid_columnconfigure(0, weight=1)
     
 #Main Function for the cleanup
 def cleanup():
-    os.makedirs(cleanup_dir)
-    os.makedirs(path1)
-    os.makedirs(path2)
-    os.makedirs(path3)
-    os.makedirs(path4)
-    os.makedirs(path5)
+    if not os.path.exists(cleanup_dir):
+        os.makedirs(cleanup_dir)
+    if not os.path.exists(path1):
+        os.makedirs(path1)
+    if not os.path.exists(path2):
+        os.makedirs(path2)
+    if not os.path.exists(path3):
+        os.makedirs(path3)
+    if not os.path.exists(path4):
+        os.makedirs(path4)
+    if not os.path.exists(path5):
+        os.makedirs(path5)
     #print('Creating Cleanup Folder...')
 
      #Loop through all files on desktop   
