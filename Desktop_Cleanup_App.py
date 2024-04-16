@@ -31,7 +31,7 @@ customtkinter.set_default_color_theme('dark-blue')
 root = customtkinter.CTk()
 
 root.title('Desktop Cleanup')
-root.geometry('400x300')
+root.geometry('400x200')
 root.grid_columnconfigure(0, weight=1)
 
 #def get_progress():
@@ -100,10 +100,10 @@ def reveal_exit_button():
 
 def update_progress_label(progress_label):
     for i in range(1, 101):
-        progress_label.configure(text=f'Progress: {i}%', text_color='DeepSkyBlue2')
+        progress_label.configure(text=f'Progress: {i}%')
         progress_label.update()
         time.sleep(0.010)
-    progress_label.configure(text='Done') 
+    progress_label.configure(text='Done', text_color='green2') 
     reveal_folder_button()
     reveal_exit_button()
    
@@ -132,10 +132,10 @@ progress_label.grid(row=2, column=0, padx=10, pady=10, columnspan=2)
 cont_button = customtkinter.CTkButton(root, text='Yes', text_color='Black', command=lambda: [update_progress_label(progress_label), cleanup()], fg_color='DeepSkyBlue2')
 cont_button.grid(row=1, column =0, padx=10, pady=10)
 
-folder_button = customtkinter.CTkButton(root, text='View Folder & Exit', command=go_to_folder)
+folder_button = customtkinter.CTkButton(root, text='View Folder & Exit', command=go_to_folder, text_color='Black', fg_color='DeepSkyBlue2')
 folder_button.pack_forget
 
-exit_button = customtkinter.CTkButton(root, text='Exit', command=leave)
+exit_button = customtkinter.CTkButton(root, text='Exit', command=leave, text_color='Black', fg_color='DeepSkyBlue2')
 exit_button.pack_forget
 
 
