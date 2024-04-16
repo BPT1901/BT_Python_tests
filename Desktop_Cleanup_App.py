@@ -2,6 +2,7 @@ import customtkinter
 import os
 import shutil
 import time
+import subprocess
 
 import send2trash
 from datetime import datetime
@@ -30,7 +31,7 @@ customtkinter.set_default_color_theme('dark-blue')
 root = customtkinter.CTk()
 
 root.title('Desktop Cleanup')
-root.geometry('450x160')
+root.geometry('400x300')
 root.grid_columnconfigure(0, weight=1)
 
 #def get_progress():
@@ -88,38 +89,59 @@ def cleanup():
             time.sleep(.05)
             label.configure(text=f'Cleanup folder completed at: {current_time}', text_color='DeepSkyBlue2')
             
-#print(f'Cleanup folder completed at: {current_time}')      
+#print(f'Cleanup folder completed at: {current_time}')
     
+def reveal_folder_button():
+    folder_button.grid(row=3, column=0, sticky='w')
+    
+def reveal_exit_button():
+    exit_button.grid(row=3, column=0, sticky='e')
+
+
 def update_progress_label(progress_label):
     for i in range(1, 101):
         progress_label.configure(text=f'Progress: {i}%', text_color='DeepSkyBlue2')
         progress_label.update()
-        time.sleep(0.010)   
+        time.sleep(0.010)
+    progress_label.configure(text='Done') 
+    reveal_folder_button()
+    reveal_exit_button()
+   
 
 #def cont_button_func():
     #print('This worked')
     #time.sleep(.05)
     #label.configure(text=f'Cleanup folder completed at: {current_time}', text_color='DeepSkyBlue2')
     
-def later_button_func():
-    print('Working')
+
     
-label = customtkinter.CTkLabel(root, text='Would you like to create a cleanup folder for all desktop files?')
-label.grid(row=0, column=0, padx=10, pady=10, columnspan=2)
+def go_to_folder():
+    subprocess.Popen(['open',cleanup_dir])
+
+def leave():
+    root.destroy()
+
+
+label = customtkinter.CTkLabel(root, text='Would you like to move desktop files into a cleanup folder?')
+label.grid(row=0, column=0, padx=10, pady=10, columnspan=3)
 
 progress_label = customtkinter.CTkLabel(root, text='')
-progress_label.grid(row=1, column=0, padx=10, pady=10, columnspan=2)
+progress_label.grid(row=2, column=0, padx=10, pady=10, columnspan=2)
 #update_progress_label(progress_label)
 
-cont_button = customtkinter.CTkButton(root, text='Continue', text_color='Black', command=lambda: [update_progress_label(progress_label), cleanup()], fg_color='DeepSkyBlue2')
-cont_button.grid(row=2, column =0, padx=10, pady=10, sticky='w')
+cont_button = customtkinter.CTkButton(root, text='Yes', text_color='Black', command=lambda: [update_progress_label(progress_label), cleanup()], fg_color='DeepSkyBlue2')
+cont_button.grid(row=1, column =0, padx=10, pady=10)
 
-later_button = customtkinter.CTkButton(root, text='Later', text_color='Black', command=later_button_func, fg_color='DeepSkyBlue2')
-later_button.grid(row=2, column =1, padx=10, pady=10, sticky='e')
+folder_button = customtkinter.CTkButton(root, text='View Folder & Exit', command=go_to_folder)
+folder_button.pack_forget
+
+exit_button = customtkinter.CTkButton(root, text='Exit', command=leave)
+exit_button.pack_forget
+
+
+#later_button = customtkinter.CTkButton(root, text='Later', text_color='Black', command=later_button_func, fg_color='DeepSkyBlue2')
+#later_button.grid(row=2, column =1, padx=10, pady=10, sticky='e')
 
 root.mainloop()
 
-
-
-
-#lambda: [progress(), cont_button_func()] 
+ 
